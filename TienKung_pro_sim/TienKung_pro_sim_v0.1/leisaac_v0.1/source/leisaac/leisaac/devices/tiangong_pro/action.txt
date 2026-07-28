@@ -1,0 +1,30 @@
+
+--- Robot Joint Names in Articulation ---
+['body_yaw_joint', 'hip_roll_l_joint', 'hip_roll_r_joint', 'shoulder_pitch_l_joint', 'shoulder_pitch_r_joint', 'head_yaw_joint', 'hip_pitch_l_joint', 'hip_pitch_r_joint', 'shoulder_roll_l_joint', 'shoulder_roll_r_joint', 'head_pitch_joint', 'hip_yaw_l_joint', 'hip_yaw_r_joint', 'shoulder_yaw_l_joint', 'shoulder_yaw_r_joint', 'head_roll_joint', 'knee_pitch_l_joint', 'knee_pitch_r_joint', 'elbow_pitch_l_joint', 'elbow_pitch_r_joint', 'ankle_pitch_l_joint', 'ankle_pitch_r_joint', 'elbow_yaw_l_joint', 'elbow_yaw_r_joint', 'ankle_roll_l_joint', 'ankle_roll_r_joint', 'wrist_pitch_l_joint', 'wrist_pitch_r_joint', 'wrist_roll_l_joint', 'wrist_roll_r_joint', 'left_index_1_joint', 'left_middle_1_joint', 'left_ring_1_joint', 'left_little_1_joint', 'left_thumb_1_joint', 'right_index_1_joint', 'right_ring_1_joint', 'right_little_1_joint', 'right_thumb_1_joint', 'right_middle_1_joint', 'left_index_2_joint', 'left_middle_2_joint', 'left_ring_2_joint', 'left_little_2_joint', 'left_thumb_2_joint', 'right_index_2_joint', 'right_ring_2_joint', 'right_little_2_joint', 'right_thumb_2_joint', 'right_middle_2_joint', 'left_thumb_3_joint', 'right_thumb_3_joint', 'left_thumb_4_joint', 'right_thumb_4_joint']
+Total joints: 54
+
+--- Action Manager Information ---
+Action Term: left_arm_action
+  Joint Indices: [3, 8, 13, 18, 22, 26, 28]
+  Target Joint Names: ['shoulder_pitch_l_joint', 'shoulder_roll_l_joint', 'shoulder_yaw_l_joint', 'elbow_pitch_l_joint', 'elbow_yaw_l_joint', 'wrist_pitch_l_joint', 'wrist_roll_l_joint']
+Action Term: right_arm_action
+  Joint Indices: [4, 9, 14, 19, 23, 27, 29]
+  Target Joint Names: ['shoulder_pitch_r_joint', 'shoulder_roll_r_joint', 'shoulder_yaw_r_joint', 'elbow_pitch_r_joint', 'elbow_yaw_r_joint', 'wrist_pitch_r_joint', 'wrist_roll_r_joint']
+Action Term: left_hand_action
+  Joint Indices: [30, 31, 32, 33, 34, 40, 41, 42, 43, 44, 50, 52]
+  Target Joint Names: ['left_index_1_joint', 'left_middle_1_joint', 'left_ring_1_joint', 'left_little_1_joint', 'left_thumb_1_joint', 'left_index_2_joint', 'left_middle_2_joint', 'left_ring_2_joint', 'left_little_2_joint', 'left_thumb_2_joint', 'left_thumb_3_joint', 'left_thumb_4_joint']
+Action Term: right_hand_action
+  Joint Indices: [35, 36, 37, 38, 39, 45, 46, 47, 48, 49, 51, 53]
+  Target Joint Names: ['right_index_1_joint', 'right_ring_1_joint', 'right_little_1_joint', 'right_thumb_1_joint', 'right_middle_1_joint', 'right_index_2_joint', 'right_ring_2_joint', 'right_little_2_joint', 'right_thumb_2_joint', 'right_middle_2_joint', 'right_thumb_3_joint', 'right_thumb_4_joint']
+Action Term: head_action
+  Joint Indices: [5, 10, 15]
+  Target Joint Names: ['head_yaw_joint', 'head_pitch_joint', 'head_roll_joint']
+Action Term: waist_action
+  Joint Indices: [0]
+  Target Joint Names: ['body_yaw_joint']
+Action Term: left_leg_action
+  Joint Indices: [1, 6, 11, 16, 20, 24]
+  Target Joint Names: ['hip_roll_l_joint', 'hip_pitch_l_joint', 'hip_yaw_l_joint', 'knee_pitch_l_joint', 'ankle_pitch_l_joint', 'ankle_roll_l_joint']
+Action Term: right_leg_action
+  Joint Indices: [2, 7, 12, 17, 21, 25]
+  Target Joint Names: ['hip_roll_r_joint', 'hip_pitch_r_joint', 'hip_yaw_r_joint', 'knee_pitch_r_joint', 'ankle_pitch_r_joint', 'ankle_roll_r_joint']

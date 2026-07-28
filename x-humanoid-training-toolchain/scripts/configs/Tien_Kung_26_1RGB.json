@@ -1,0 +1,42 @@
+{
+    "observation.images.camera_head": {
+        "dtype": "video",
+        "shape": [360, 640, 3],
+        "names": ["height", "width", "channel"],
+        "video_info": {
+            "video.fps": 30.0,
+            "video.codec": "libopenh264",
+            "video.pix_fmt": "yuv420p",
+            "video.is_depth_map": false,
+            "has_audio": false
+        }
+    },
+    "observation.state": {
+        "dtype": "float32",
+        "shape": "(26,)"
+    },
+    "action": {
+        "dtype": "float32",
+        "shape": "(26,)"
+    },
+    "episode_index": {
+        "dtype": "int64",
+        "shape": [1],
+        "names": null
+    },
+    "frame_index": {
+        "dtype": "int64",
+        "shape": [1],
+        "names": null
+    },
+    "index": {
+        "dtype": "int64",
+        "shape": [1],
+        "names": null
+    },
+    "task_index": {
+        "dtype": "int64",
+        "shape": [1],
+        "names": null
+    }
+}

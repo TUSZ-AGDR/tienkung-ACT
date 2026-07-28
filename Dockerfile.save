@@ -1,0 +1,116 @@
+FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
+
+# -------------------------
+# 1. System dependencies
+# -------------------------
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
+    curl wget git vim nano unzip ca-certificates gnupg lsb-release \
+    build-essential cmake pkg-config \
+    python3.10 python3.10-dev python3.10-venv python3-pip \
+    ffmpeg \
+    libgl1 libglib2.0-0 libsm6 libxext6 libxrender1 \
+    libegl1 libxkbcommon-x11-0 \
+    net-tools iproute2 iputils-ping procps lsof \
+    && rm -rf /var/lib/apt/lists/*
+
+# -------------------------
+# 2. ROS2 Humble
+# -------------------------
+RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+    -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] \
+    http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" \
+    > /etc/apt/sources.list.d/ros2.list
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-humble-ros-base \
+    ros-humble-rmw-fastrtps-cpp \
+    ros-humble-cv-bridge \
+    ros-humble-image-transport \
+    ros-humble-sensor-msgs \
+    ros-humble-std-msgs \
+    ros-humble-geometry-msgs \
+    ros-humble-tf2-ros \
+    ros-humble-tf2-msgs \
+    ros-humble-tf2-geometry-msgs \
+    ros-humble-ros2topic \
+    ros-humble-ros2doctor \
+    && rm -rf /var/lib/apt/lists/*
+
+# -------------------------
+# 3. ROS2 / FastDDS env
+# -------------------------
+ENV ROS_DOMAIN_ID=146
+ENV RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+ENV FASTRTPS_DEFAULT_PROFILES_FILE=/workspace/fastrtps_local.xml
+
+SHELL ["/bin/bash", "-c"]
+
+# -------------------------
+# 4. Python venv
+# Use --system-site-packages so Python can see ROS2 apt-installed modules.
+# -------------------------
+RUN python3.10 -m venv --system-site-packages /opt/env_vla
+
+ENV PATH="/opt/env_vla/bin:$PATH"
+
+RUN pip install --upgrade pip setuptools wheel
+
+# -------------------------
+# 5. PyTorch CUDA 12.8
+# Keep torch family out of requirements-docker.txt.
+# -------------------------
+RUN pip install --no-cache-dir \
+    --index-url https://download.pytorch.org/whl/cu128 \
+    torch==2.7.0 torchvision==0.22.0 torchaudio
+
+RUN pip install --no-cache-dir \
+    --index-url https://download.pytorch.org/whl/cu128 \
+    torchcodec
+
+# -------------------------
+# 6. Python dependencies
+# -------------------------
+WORKDIR /workspace
+
+COPY requirements-docker.txt /tmp/requirements-docker.txt
+
+RUN pip install --no-cache-dir -r /tmp/requirements-docker.txt
+
+# -------------------------
+# 7. Copy project
+# Outer project contains:
+#   x-humanoid-training-toolchain/
+#   TienKung_pro_
+sim/
+#   fastrtps_local.xml
+# -------------------------
+COPY x-humanoid-training-toolchain /workspace/x-humanoid-training-toolchain
+COPY TienKung_pro_sim /workspace/TienKung_pro_sim
+COPY docs /workspace/docs
+
+# If fastrtps_local.xml exists in the outer directory, copy it.
+# If it does not exist, this line will fail. Comment it out if needed.
+COPY fastrtps_local.xml /workspace/fastrtps_local.xml
+
+# -------------------------
+# 8. Install local project
+# -------------------------
+WORKDIR /workspace/x-humanoid-training-toolchain
+
+RUN pip install --no-cache-dir -e .
+
+# -------------------------
+# 9. Convenience shell setup
+# -------------------------
+RUN echo 'source /opt/ros/humble/setup.bash' >> /root/.bashrc && \
+    echo 'export ROS_DOMAIN_ID=146' >> /root/.bashrc && \
+    echo 'export RMW_IMPLEMENTATION=rmw_fastrtps_cpp' >> /root/.bashrc && \
+    echo 'export FASTRTPS_DEFAULT_PROFILES_FILE=/workspace/fastrtps_local.xml' >> /root/.bashrc && \
+    echo 'export PATH=/opt/env_vla/bin:$PATH' >> /root/.bashrc
+
+CMD ["/bin/bash"]

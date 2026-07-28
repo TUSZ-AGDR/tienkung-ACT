@@ -1,0 +1,61 @@
+{
+    "dataset": {
+        "repo_id": "./data3/pick_place",
+        "root": "./data3/pick_place",
+        "episodes": null,
+        "use_imagenet_stats": false,
+        "video_backend": "pyav"
+    },
+    "policy": {
+        "type": "pi0",
+        "chunk_size":50,
+        "n_action_steps": 8,
+        "n_obs_steps": 1,
+        "max_state_dim": 32,
+        "max_action_dim": 32,
+        "resize_imgs_with_padding": [224, 224],
+        "empty_cameras": 0,
+        "adapt_to_pi_aloha": false,
+        "use_delta_joint_actions_aloha": false,
+        "tokenizer_max_length": 48,
+        "proj_width": 1024,
+        "num_steps": 8,
+        "use_cache": true,
+        "attention_implementation": "sdpa",
+        "freeze_vision_encoder": true,
+        "train_expert_only": true,
+        "train_state_proj": true,
+        "optimizer_lr": 1e-5,
+        "optimizer_betas": [0.9, 0.95],
+        "optimizer_eps": 1e-8,
+        "optimizer_weight_decay": 1e-10,
+        "scheduler_warmup_steps": 1000,
+        "scheduler_decay_steps": 15000,
+        "scheduler_decay_lr": 2.5e-6,
+        "use_amp": true,
+        "normalization_mapping": {
+            "VISUAL": "IDENTITY",
+            "STATE": "MEAN_STD",
+            "ACTION": "MEAN_STD"
+        }
+    },
+    "output_dir": "./data3/output_pi0",
+    "job_name": "pick_place",
+    "resume": false,
+    "seed": 1000,
+    "num_workers": 4,
+    "batch_size": 8,
+    "steps": 30000,
+    "eval_freq": 0,
+    "log_freq": 100,
+    "save_checkpoint": true,
+    "save_freq": 10000,
+    "use_policy_training_preset": true,
+    "wandb": {
+        "enable": false,
+        "disable_artifact": true,
+        "project": "lerobot-pi0",
+        "entity": null,
+        "notes": "PI0 finetuning on TienKung 26-dim dataset"
+    }
+}
