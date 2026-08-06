@@ -159,6 +159,7 @@ ros2 topic pub /head/cmd_pos bodyctrl_msgs/msg/CmdSetMotorPosition \
 
 https://github.com/user-attachments/assets/704b09f5-69b3-47f9-9ce7-c5ed037cec99
 
+这是执行指令
 ```bash
 conda activate env_vla
 cd ~/GTM/soft/x-humanoid-training-toolchain
