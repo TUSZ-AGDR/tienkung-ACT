@@ -154,6 +154,9 @@ ros2 topic pub /head/cmd_pos bodyctrl_msgs/msg/CmdSetMotorPosition \
 **4. 启动相机**
 
 **5. 一键推理**
+下面是真机执行推理操作视频
+
+https://github.com/user-attachments/assets/704b09f5-69b3-47f9-9ce7-c5ed037cec99
 
 ```bash
 conda activate env_vla
@@ -162,6 +165,9 @@ python deployment/ros2_deployment_inspire.py
 ```
 
 > ⚠️ **安全提示**：首次运行请移开机器人前方障碍物做无障碍测试；正式执行时人员与机器人保持 2 米以上安全距离，熟悉急停按钮，并确保场景布置与训练数据尽可能一致。
+以下是真机效果展示
+
+https://github.com/user-attachments/assets/1b665770-ab8a-4a38-85a7-f36e366d7193
 
 ## 📚 文档资源
 
